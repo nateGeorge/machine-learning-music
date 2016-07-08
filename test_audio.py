@@ -4,6 +4,7 @@ import wave
 import numpy as np
 from pydub import AudioSegment
 from glob import glob
+import pylab as plt
 
 chunk = 2048
 
@@ -33,6 +34,7 @@ stream = p.open(format =
 
 # read some data
 data = wf.readframes(chunk)
+allFFT = []
 print(len(data))
 print(chunk*swidth)
 # play stream and find the frequency of each chunk
@@ -58,6 +60,11 @@ while len(data) == chunk*swidth:
         print("The freq is %f Hz." % (thefreq))
     # read some more data
     data = wf.readframes(chunk)
+
+allFFT = np.array(allFFT)
+
+plt.plot(allFFT[0])
+plt.show()
 
 if data:
     stream.write(data)
